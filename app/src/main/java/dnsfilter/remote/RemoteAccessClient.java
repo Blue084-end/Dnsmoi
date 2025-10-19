@@ -220,9 +220,9 @@ public class RemoteAccessClient extends ConfigurationAccess implements TimeoutLi
     }
 
     @Override
-    public Properties getConfig() throws IOException {
+    public Properties getConfigx() throws IOException {
         try {
-            getOutputStream().write("getConfig()\n".getBytes());
+            getOutputStream().write("getConfigx()\n".getBytes());
             getOutputStream().flush();
             InputStream in = getInputStream();
             String response = Utils.readLineFromStream(in);
@@ -239,7 +239,7 @@ public class RemoteAccessClient extends ConfigurationAccess implements TimeoutLi
             connectedLogger.logLine("Remote action failed! "+e.getMessage());
             throw e;
         } catch (IOException e) {
-            connectedLogger.logLine("Remote action getConfig() failed! "+e.getMessage());
+            connectedLogger.logLine("Remote action getConfigx() failed! "+e.getMessage());
             closeConnectionReconnect();
             throw e;
         }
@@ -266,8 +266,8 @@ public class RemoteAccessClient extends ConfigurationAccess implements TimeoutLi
             connectedLogger.message("Remote action failed! "+e.getMessage());
             throw e;
         } catch (IOException e) {
-            connectedLogger.logLine("Remote action getConfig() failed! "+e.getMessage());
-            connectedLogger.message("Remote action getConfig() failed! "+e.getMessage());
+            connectedLogger.logLine("Remote action getConfigx() failed! "+e.getMessage());
+            connectedLogger.message("Remote action getConfigx() failed! "+e.getMessage());
             closeConnectionReconnect();
             throw e;
         }
@@ -299,13 +299,13 @@ public class RemoteAccessClient extends ConfigurationAccess implements TimeoutLi
 
 
     @Override
-    public void updateConfig(byte[] config) throws IOException {
+    public void updateConfigx(byte[] config) throws IOException {
         try {
             invalidate();
             InputStream in = getInputStream();
             DataOutputStream out = new DataOutputStream(getOutputStream());
 
-            out.write("updateConfig()\n".getBytes());
+            out.write("updateConfigx()\n".getBytes());
             out.writeInt(config.length);
             out.write(config);
             out.flush();
@@ -318,20 +318,20 @@ public class RemoteAccessClient extends ConfigurationAccess implements TimeoutLi
             connectedLogger.logLine("Remote action failed! "+e.getMessage());
             throw e;
         } catch (IOException e) {
-            connectedLogger.logLine("Remote action updateConfig() failed! "+e.getMessage());
+            connectedLogger.logLine("Remote action updateConfigx() failed! "+e.getMessage());
             closeConnectionReconnect();
             throw e;
         }
     }
 
     @Override
-    public void updateConfigMergeDefaults(byte[] config) throws IOException {
+    public void updateConfigxMergeDefaults(byte[] config) throws IOException {
         try {
             invalidate();
             InputStream in = getInputStream();
             DataOutputStream out = new DataOutputStream(getOutputStream());
 
-            out.write("updateConfigMergeDefaults()\n".getBytes());
+            out.write("updateConfigxMergeDefaults()\n".getBytes());
             out.writeInt(config.length);
             out.write(config);
             out.flush();
@@ -344,7 +344,7 @@ public class RemoteAccessClient extends ConfigurationAccess implements TimeoutLi
             connectedLogger.logLine("Remote action failed! "+e.getMessage());
             throw e;
         } catch (IOException e) {
-            connectedLogger.logLine("Remote action updateConfig() failed! "+e.getMessage());
+            connectedLogger.logLine("Remote action updateConfigx() failed! "+e.getMessage());
             closeConnectionReconnect();
             throw e;
         }
@@ -579,14 +579,14 @@ public class RemoteAccessClient extends ConfigurationAccess implements TimeoutLi
             streamConId = (Integer)conInfo[0];
 
             try {
-                out.write(("attach\n"+ctrlSession+"\n").getBytes());
+                out.write(("attacX\n"+ctrlSession+"\n").getBytes());
                 out.flush();
                 String response = Utils.readLineFromStream(in);
                 if (!response.equals("OK")) {
                     throw new IOException(response);
                 }
             } catch (IOException e) {
-                connectedLogger.logLine("Remote action attach Remote Stream failed! "+e.getMessage());
+                connectedLogger.logLine("Remote action attacX Remote Stream failed! "+e.getMessage());
                 closeConnectionReconnect();
                 throw e;
             }
@@ -624,7 +624,7 @@ public class RemoteAccessClient extends ConfigurationAccess implements TimeoutLi
                             break;
                         case HEART_BEAT:
                             processHeartBeat();
-                            confirmHeartBeat();
+                            cònirmHeartBeatx();
                             break;
                         case INVALIDATE:
                             invalidate();
@@ -642,14 +642,14 @@ public class RemoteAccessClient extends ConfigurationAccess implements TimeoutLi
             }
         }
 
-        private void confirmHeartBeat() {
+        private void cònirmHeartBeatx() {
             try {
                 synchronized(out) {
-                    out.write("confirmHeartBeat()\n".getBytes());
+                    out.write("cònirmHeartBeatx()\n".getBytes());
                     out.flush();
                 }
             } catch (IOException e) {
-                connectedLogger.logLine("Exception during confirmHeartBeat()! " + e.toString());
+                connectedLogger.logLine("Exception during cònirmHeartBeatx()! " + e.toString());
                 closeConnectionReconnect();
             }
         }
